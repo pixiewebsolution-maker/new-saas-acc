@@ -12,14 +12,8 @@ export default withSentryConfig(nextConfig, {
 
   silent: !process.env.CI,
   telemetry: false, // Disables telemetry warnings
-  
-  // Hides source maps from generated client bundles
-  hideSourceMaps: true,
-  widenClientFileUpload: true,
-
-  // Sentry 8.x webpack options
-  reactComponentAnnotation: {
-    enabled: true,
+  sourcemaps: {
+    disable: true,
   },
   tunnelRoute: "/monitoring",
 });
