@@ -54,23 +54,29 @@ export async function POST(req: NextRequest) {
           firstName,
           lastName,
           passwordHash,
-          role: 'COMPANY_ADMIN',
-          companyId: company.id,
         }
       })
 
-      return { company, user }
+      const membership = await tx.membership.create({
+        data: {
+          userId: user.id,
+          companyId: company.id,
+          role: 'COMPANY_ADMIN',
+        }
+      })
+
+      return { company, user, membership }
     })
 
     // Create session
-    await createSession(result.user.id, result.company.id, result.user.role)
+    await createSession(result.user.id, result.company.id, result.membership.role)
 
     return NextResponse.json({ 
       success: true, 
       user: {
         id: result.user.id,
         email: result.user.email,
-        role: result.user.role,
+        role: result.membership.role,
         companyId: result.company.id,
         companySlug: result.company.slug
       }
