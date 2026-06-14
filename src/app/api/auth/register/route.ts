@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
     const slug = companyName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '')
 
     // Transaction to create company and user
-    const result = await db.$transaction(async (tx) => {
+    const result = await db.$transaction(async (tx: any) => {
       let uniqueSlug = slug
       let counter = 1
       while (await tx.company.findUnique({ where: { slug: uniqueSlug } })) {
