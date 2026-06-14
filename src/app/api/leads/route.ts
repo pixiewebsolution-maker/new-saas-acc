@@ -76,7 +76,7 @@ export async function POST(req: NextRequest) {
       finalAssignee = userId
     }
 
-    const lead = await db.$transaction(async (tx) => {
+    const lead = await db.$transaction(async (tx: any) => {
       const newLead = await tx.lead.create({
         data: {
           companyId,

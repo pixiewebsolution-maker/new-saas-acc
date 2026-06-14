@@ -64,7 +64,7 @@ export async function PATCH(req: NextRequest, props: { params: Promise<{ id: str
       }
     }
 
-    const updatedProposal = await db.$transaction(async (tx) => {
+    const updatedProposal = await db.$transaction(async (tx: any) => {
       // If content is updated, bump version
       const versionBump = (data.content && JSON.stringify(data.content) !== JSON.stringify(proposal.content)) ? 1 : 0
       
